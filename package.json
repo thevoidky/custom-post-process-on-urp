@@ -1,0 +1,32 @@
+{
+  "name": "com.ootl.custompostprocess",
+  "version": "0.1.0-dev",
+  "displayName": "Custom Post-process on URP",
+  "description": "Support shader-based customized post-process features on Universal Render Pipeline.",
+  "unity": "2020.3",
+  "dependencies": {
+  },
+  "samples": [
+    {
+      "displayName": "on Just-initialized URP Project",
+      "description": "Contains sample set in a URP project just on initialized.",
+      "path": "Samples~/urp"
+    }
+  ],
+  "keywords": [
+    "ootl",
+    "urp",
+    "srp",
+    "post process",
+    "post-process",
+    "postprocess",
+    "custom",
+    "unity",
+    "upm"
+  ],
+  "author": {
+    "name": "OOTL",
+    "email": "thevoidky@gmail.com",
+    "url": "https://github.com/thevoidky"
+  }
+}
