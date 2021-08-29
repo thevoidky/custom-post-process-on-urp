@@ -1,6 +1,6 @@
 {
   "name": "com.ootl.custompostprocess",
-  "version": "0.1.0-dev",
+  "version": "0.1.0-exp",
   "displayName": "Custom Post-process on URP",
   "description": "Support shader-based customized post-process features on Universal Render Pipeline.",
   "unity": "2020.3",
