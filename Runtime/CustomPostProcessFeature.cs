@@ -21,18 +21,19 @@ namespace CustomPostProcess.Runtime
         private CustomPostProcessSource _cpp;
 
         private readonly int _feature;
-        private readonly Color _color;
+        // private readonly Color _color;
 
         private readonly RenderTargetHandle[] _renderTargetHandles = new RenderTargetHandle[2];
 
         public CustomPostProcessRenderPass(string profilerTag, RenderPassEvent renderPassEvent, Material material,
-            int feature, Color color)
+            int feature)
+            // int feature, Color color)
         {
             _profilerTag = profilerTag;
             this.renderPassEvent = renderPassEvent;
             _material = material;
             _feature = feature;
-            _color = color;
+            // _color = color;
 
             _cameraColorTextureHandle.Init(CustomPostProcessSource.CameraColorTexture);
             _cameraDepthTextureHandle.Init(CustomPostProcessSource.CameraDepthTexture);
@@ -74,7 +75,7 @@ namespace CustomPostProcess.Runtime
             };
 
             _material.SetFloat(CustomPostProcessSource.PropertyValue, _cpp.GetFinalizedValue(_feature));
-            _material.SetColor(CustomPostProcessSource.PropertyColor, _color);
+            // _material.SetColor(CustomPostProcessSource.PropertyColor, _color);
             cmd.Blit(src, dst, _material, 0);
             ++flipIndex;
 
@@ -103,7 +104,7 @@ namespace CustomPostProcess.Runtime
             [Range(0, 31)]
             public int feature = 0;
 
-            public Color color = Color.white;
+            // public Color color = Color.white;
         }
 
         // MUST be named "settings" (lowercase) to be shown in the Render Features inspector
@@ -115,7 +116,8 @@ namespace CustomPostProcess.Runtime
         public override void Create()
         {
             _renderPass = new CustomPostProcessRenderPass(name, settings.renderPassEvent, settings.material,
-                settings.feature, settings.color);
+                settings.feature);
+                // settings.feature, settings.color);
         }
 
         // called every frame once per camera
