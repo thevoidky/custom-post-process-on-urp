@@ -1,4 +1,4 @@
-Shader "Custom/Color"
+Shader "CustomPostProcess/Samples/Color"
 {
     Properties
     {
