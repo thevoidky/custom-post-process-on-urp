@@ -1,6 +1,6 @@
 # Custom Post-process on URP
 
-Support shader-based customized post-process features on Universal Render Pipeline.
+Supports shader-based customized post-process features on Universal Render Pipeline.
 
 ## Table of Contents
 - [Requirements](#requirements)
