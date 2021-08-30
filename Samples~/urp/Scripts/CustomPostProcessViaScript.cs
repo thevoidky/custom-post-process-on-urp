@@ -26,9 +26,10 @@ public class CustomPostProcessViaScript : MonoBehaviour
     {
         using var area = new GUILayout.AreaScope(new Rect(50f, 50f, Screen.width - 100f, Screen.height - 100f));
 
-        GUILayout.Box($"isOn = {_isOn}");
+        var boxStyle = new GUIStyle("Box") { alignment = TextAnchor.MiddleCenter, fixedHeight = 80f };
+        GUILayout.Box($"{(_isOn ? "Active" : "Inactive")}", boxStyle);
 
-        if (GUILayout.Button("Toggle"))
+        if (GUILayout.Button("Toggle", GUILayout.Height(80f)))
         {
             _adapter.Activate(_isOn = !_isOn);
         }
