@@ -17,16 +17,15 @@ namespace CustomPostProcess.Runtime
         public static readonly int PropertyColor = Shader.PropertyToID("_Color");
 
         [SerializeField]
-        private int featureMask = -1;
+        private float globalValueFactor = 1f;
 
-        [SerializeField]
-        private float globalValue = 1f;
+        private int _featureMask = 0;
 
         private readonly Dictionary<int, float> _valuesPerFeature = new Dictionary<int, float>();
         private readonly Dictionary<int, float> _offsetsPerFeature = new Dictionary<int, float>();
 
-        public int FeatureMask => featureMask;
-        public float GlobalValue => globalValue;
+        public int FeatureMask => _featureMask;
+        public float GlobalValueFactor => globalValueFactor;
 
         public bool PostProcessEnabled
         {
@@ -39,12 +38,12 @@ namespace CustomPostProcess.Runtime
 
         private Camera Camera => GetComponent<Camera>();
 
-        public bool Contains(int feature) => (featureMask & (1 << feature)) != 0;
-        public int Add(int mask) => featureMask |= mask;
-        public int Remove(int mask) => featureMask &= ~mask;
+        public bool Contains(int feature) => (FeatureMask & (1 << feature)) != 0;
 
         public void SetValue(int feature, float value, bool autoToggleState = true)
         {
+            feature = Mathf.Clamp(feature, 0, 31);
+            
             value = Mathf.Clamp01(value);
             _valuesPerFeature[feature] = value;
 
@@ -74,6 +73,9 @@ namespace CustomPostProcess.Runtime
         public float GetValueOffset(int feature) =>
             _offsetsPerFeature.TryGetValue(feature, out var offset) ? offset : 0f;
 
-        public float GetFinalizedValue(int feature) => (GetValue(feature) + GetValueOffset(feature)) * globalValue;
+        public float GetFinalizedValue(int feature) => (GetValue(feature) + GetValueOffset(feature)) * GlobalValueFactor;
+
+        internal int Add(int mask) => _featureMask |= mask;
+        internal int Remove(int mask) => _featureMask &= ~mask;
     }
 }

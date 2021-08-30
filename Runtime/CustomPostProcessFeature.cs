@@ -14,7 +14,6 @@ namespace CustomPostProcess.Runtime
         private readonly Material _material;
         private RenderTargetHandle _afterPostProcessTextureHandle;
         private RenderTargetHandle _cameraColorTextureHandle;
-
         private RenderTargetHandle _cameraDepthTextureHandle;
 
         // private RenderTargetIdentifier _cameraColorTarget;

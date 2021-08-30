@@ -102,7 +102,7 @@ Material:
     - _StencilWriteMask: 255
     - _UVSec: 0
     - _UseUIAlphaClip: 0
-    - _Value: 0.0023913998
+    - _Value: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.638, g: 0.638, b: 0.638, a: 1}
