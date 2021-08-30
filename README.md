@@ -38,7 +38,7 @@ If you succeeded to install the package, you could see the sample,
 
 and as to import, you could see a sample scene. This sample is preset of an URP project that is applied custom post-process.
 
-![image](https://user-images.githubusercontent.com/22534449/131256909-c7a83919-60dd-4b53-85c3-9b87527fcc83.png)
+![image](https://user-images.githubusercontent.com/22534449/131383578-af61330d-a2b7-4a3c-886e-09ff8b052410.png)
 ![image](https://user-images.githubusercontent.com/22534449/131256927-4900fcfa-b599-49ee-9f7a-aaece2289965.png)
 
 You could see a ```CustomPostProcessSource``` component at ```Main Camera``` GameObject and a ```CustomPostProcessComponent``` component at ```CustomPostProcessComponent``` GameObject.
