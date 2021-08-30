@@ -62,5 +62,3 @@ You can see it, the "Feature" of the color feature is 0. And the ```Applied Feat
 As you may have noticed, the Component and Adapter can apply features to the Source by ```Applied Features``` flag of themselves if it contains any feature added to ```ForwardRendererData```.
 
 ...and ```CustomPostProcessViaScript``` is exist also, please see that if you want to do via script.
-
-## 
