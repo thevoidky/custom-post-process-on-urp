@@ -46,7 +46,7 @@ namespace CustomPostProcess.Runtime
                 ? CustomPostProcessSource.TextureNameOdd
                 : CustomPostProcessSource.TextureNameEven);
 
-            _material.SetFloat(CustomPostProcessSource.PropertyValue, _cpp.GlobalValue);
+            _material.SetFloat(CustomPostProcessSource.PropertyValue, _cpp.GlobalValueFactor);
             // _material.SetFloat(CustomPostProcessing.PropertyValue, 1f);
 
             var dst = renderingData.cameraData.postProcessEnabled

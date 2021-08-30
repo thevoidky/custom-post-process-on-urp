@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -8,13 +7,11 @@ using UnityEngine.Events;
 
 namespace CustomPostProcess.Runtime
 {
-    public class CustomPostProcessAdapter : MonoBehaviour
+    [Serializable]
+    public class CustomPostProcessAdapter
     {
         [SerializeField]
         private CustomPostProcessSource target;
-
-        [SerializeField]
-        private List<string> features;
 
         [SerializeField]
         private int featureMask;
@@ -34,6 +31,42 @@ namespace CustomPostProcess.Runtime
         public UnityEvent onActivationComplete;
         public UnityEvent onDeactivationComplete;
 
+        public CustomPostProcessSource Target
+        {
+            get => target;
+            set => target = value;
+        }
+
+        public int FeatureMask
+        {
+            get => featureMask;
+            set => featureMask = value;
+        }
+
+        public float DurationToOn
+        {
+            get => durationToOn;
+            set => durationToOn = value;
+        }
+
+        public float DurationToOff
+        {
+            get => durationToOff;
+            set => durationToOff = value;
+        }
+
+        public float ValueAtOn
+        {
+            get => valueAtOn;
+            set => valueAtOn = value;
+        }
+
+        public float ValueAtOff
+        {
+            get => valueAtOff;
+            set => valueAtOff = value;
+        }
+
         private CancellationTokenSource _cancellationTokenSource;
 
         public void Activate(bool isOn)
@@ -41,7 +74,7 @@ namespace CustomPostProcess.Runtime
             Activate(isOn ? valueAtOn : valueAtOff, isOn ? durationToOn : durationToOff);
         }
 
-        public void Activate(float targetValue, float duration)
+        private void Activate(float targetValue, float duration)
         {
             if (featureMask == 0)
             {
@@ -97,20 +130,6 @@ namespace CustomPostProcess.Runtime
                         _cancellationTokenSource.Token)
                     .Forget();
             }
-        }
-
-        private void Awake()
-        {
-            if (!target)
-            {
-                return;
-            }
-            
-            // _featureMask = features.Aggregate(0, (_, feature) =>
-            // {
-            //     ScriptableRendererDat
-            //     target.PostProcessEnabled
-            // })
         }
 
         private static async UniTask Tween(float from, float to, float duration, Action<float> onUpdate,

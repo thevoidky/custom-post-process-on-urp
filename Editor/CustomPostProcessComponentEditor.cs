@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace CustomPostProcess.Editor
 {
-    [CustomEditor(typeof(CustomPostProcessAdapter), true)]
+    [CustomEditor(typeof(CustomPostProcessComponent), true)]
     //[CanEditMultipleObjects]
-    public class CustomPostProcessAdapterEditor : UnityEditor.Editor
+    public class CustomPostProcessComponentEditor : UnityEditor.Editor
     {
         //  TODO: ScriptableObject화
         private string[] _names;
 
-        private SerializedProperty _customPostProcessing;
+        private SerializedProperty _target;
         private SerializedProperty _featureMask;
         private SerializedProperty _durationToOn, _durationToOff;
         private SerializedProperty _valueAtOn, _valueAtOff;
@@ -22,14 +22,16 @@ namespace CustomPostProcess.Editor
 
         private void OnEnable()
         {
-            _customPostProcessing = serializedObject.FindProperty("target");
-            _featureMask = serializedObject.FindProperty("featureMask");
-            _durationToOn = serializedObject.FindProperty("durationToOn");
-            _durationToOff = serializedObject.FindProperty("durationToOff");
-            _valueAtOn = serializedObject.FindProperty("valueAtOn");
-            _valueAtOff = serializedObject.FindProperty("valueAtOff");
-            _onActivationComplete = serializedObject.FindProperty("onActivationComplete");
-            _onDeactivationComplete = serializedObject.FindProperty("onDeactivationComplete");
+            var adapter = serializedObject.FindProperty("adapter");
+
+            _target = adapter.FindPropertyRelative("target");
+            _featureMask = adapter.FindPropertyRelative("featureMask");
+            _durationToOn = adapter.FindPropertyRelative("durationToOn");
+            _durationToOff = adapter.FindPropertyRelative("durationToOff");
+            _valueAtOn = adapter.FindPropertyRelative("valueAtOn");
+            _valueAtOff = adapter.FindPropertyRelative("valueAtOff");
+            _onActivationComplete = adapter.FindPropertyRelative("onActivationComplete");
+            _onDeactivationComplete = adapter.FindPropertyRelative("onDeactivationComplete");
 
             var names = new List<string>();
             for (var i = 0; i < 32; ++i)
@@ -42,11 +44,11 @@ namespace CustomPostProcess.Editor
 
         public override void OnInspectorGUI()
         {
-            _customPostProcessing.objectReferenceValue = EditorGUILayout.ObjectField("Source",
-                _customPostProcessing.objectReferenceValue,
+            _target.objectReferenceValue = EditorGUILayout.ObjectField("Source",
+                _target.objectReferenceValue,
                 typeof(CustomPostProcessSource), true);
 
-            if (null == _customPostProcessing.objectReferenceValue)
+            if (null == _target.objectReferenceValue)
             {
                 return;
             }
@@ -68,13 +70,13 @@ namespace CustomPostProcess.Editor
 
             serializedObject.ApplyModifiedProperties();
 
-            var cpp = _customPostProcessing.objectReferenceValue as CustomPostProcessSource;
+            var cpp = _target.objectReferenceValue as CustomPostProcessSource;
             if (cpp)
             {
                 EditorGUILayout.Space();
                 if (GUILayout.Button($"Toggle to {(_isOn ? "off" : "on")}", GUILayout.Height(32f)))
                 {
-                    var adapter = target as CustomPostProcessAdapter;
+                    var adapter = target as CustomPostProcessComponent;
                     if (adapter)
                     {
                         adapter.Activate(_isOn = !_isOn);
